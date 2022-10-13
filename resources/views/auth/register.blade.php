@@ -65,7 +65,7 @@
 
                                 <div>
                                     <input id="password-confirm" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="email"
+                                        class="form-control @error('password') is-invalid @enderror"
                                         name="password_confirmation" autocomplete="new-password"
                                         placeholder="Re-type Your Password">
                                 </div>
@@ -76,13 +76,13 @@
                                 <div>
                                     <div class="input-group-prepend @error('gender') is-invalid @enderror">
                                         <div class="form-check">
-                                            <input class="form-check-input  " type="radio" name="gender" id="male"
-                                                value="male" />
+                                            <input class="form-check-input" type="radio" name="gender" id="male"
+                                                value="male" autocomplete="gender" />
                                             <label class="form-check-label" for="male">Male</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="gender" id="female"
-                                                value="female" />
+                                                value="female" autocomplete="gender" />
                                             <label class="form-check-label" for="female">Female</label>
                                         </div>
                                     </div>
@@ -97,7 +97,7 @@
                                 <label for="date_of_birth" class="mb-1">{{ __('Date of Birth') }}</label>
                                 <div>
                                     <input type="date" class="form-control @error('date_of_birth') is-invalid @enderror"
-                                        name="email" name="date_of_birth" id="date_of_birth">
+                                        autocomplete="date_of_birth" name="date_of_birth" id="date_of_birth">
                                     @error('date_of_birth')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -111,7 +111,8 @@
                                 <label for="country" class="mb-1">{{ __('Country') }}</label>
                                 <div>
                                     <div class="input-group @error('country') is-invalid @enderror">
-                                        <select id="inputState" class="form-select" name="country" form="registration_form">
+                                        <select id="inputState" class="form-select" name="country" autocomplete="country"
+                                            form="registration_form">
                                             <option selected disabled value="">Choose a country</option>
                                             <option value="">...</option>
                                         </select>
