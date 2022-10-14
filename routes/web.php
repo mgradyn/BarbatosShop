@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+
 // make prefix
 Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('/dashboard', function() {
