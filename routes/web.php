@@ -21,14 +21,15 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// make prefix
 Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('/dashboard', function() {
         return "this is admin";
-    });
+    })->name('dashboard');
 
     Route::get('/manageProduct', function() {
         return "this is manage product";
-    });
+    })->name('manageProduct');
 
     Route::get('/manageProduct/addProduct', function() {
         return "this is manage product";
