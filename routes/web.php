@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,25 +23,18 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
 // make prefix
-Route::middleware(['auth', 'isAdmin'])->group(function(){
-    Route::get('/dashboard', function() {
-        return "this is admin";
-    })->name('dashboard');
+Route::prefix('admin/manageProduct/')->middleware(['auth', 'isAdmin'])->group(function(){
 
-    Route::get('/manageProduct', function() {
-        return "this is manage product";
-    })->name('manageProduct');
+    Route::get('/', [ProductController::class, 'index'])->name('manageProduct');
 
-    Route::get('/manageProduct/addProduct', function() {
-        return "this is manage product";
-    });
+    Route::post('/insert-category', [CategoryController::class, 'insert']);
 
-    Route::get('/manageProduct/updateProduct', function() {
-        return "this is manage product";
-    });
+    Route::get('/add-product', [ProductController::class, 'add'])->name('add-product');
+
+    Route::post('/insert-product', [ProductController::class, 'insert']);
 });
