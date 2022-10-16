@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -66,5 +67,61 @@ class ProductController extends Controller
 
         return redirect('manageProduct')->with('status', "Product Added Successfully");
 
+    }
+
+    public function edit($id)
+    {
+        $product = Product::find($id);
+        return view('admin.product.edit', compact('product'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = Product::find($id);
+
+        if($request->hasFile('photo'))
+        {
+            $path = 'uploads/products/'.$product->photo;
+
+            if(File::exists($path))
+            {
+                File::delete($path);
+            }
+
+            $file = $request->file('photo');
+            $ext = $file->getClientOriginalExtension();
+            $filename = time().'.'.$ext;
+            $file->move('uploads/products/', $filename);
+            $product->photo = $filename;
+        }
+
+        $category = Category::firstOrCreate([
+            'name' -> $request->input('category_name'),
+        ]);
+
+        $category_id =  $category->id; 
+
+        $product->name = $request->input('name');
+        $product->slug = preg_replace('/\s+/', '-', $request->input('name')) . "-" . $product->generateId($request->input('name'));
+        $product->category_id = $category_id;
+        $product->detail = $request->input('detail');
+        $product->price = $request->input('price');
+        $product->update();
+
+        return redirect('manageProduct')->with('status', "Product updated successfully");
+    }
+
+
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+        $path = 'uploads/products/'.$product->photo;
+        if(File::exists($path))
+        {
+            File::delete($path);
+        }
+        $product->delete();
+
+        return redirect('manageProduct')->with('status', "Product deleted successfully");
     }
 }
