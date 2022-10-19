@@ -13,6 +13,23 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
+        
+        $request_search = request('search');
+
+        if ($request_search){
+            $products= Product::where("name", "LIKE", "%$request_search%")->get();
+        }
+
+        // cara 2
+        // $products = Product::latest();
+        
+        // $request_search = request('search');
+
+        // if ($request_search){
+        //     $products->where("name", "LIKE", "%$request_search%");
+        // }
+        // $products = $products->get();
+
         return view('admin.manageProduct.index', compact('products'));
     }
 

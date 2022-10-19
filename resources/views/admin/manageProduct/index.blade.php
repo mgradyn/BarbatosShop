@@ -6,11 +6,13 @@
             <div class="col-md-10">
                 <div class="d-flex mb-3">
                     <div>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search Product" aria-label="Search Product"
-                                aria-describedby="Search Product">
-                            <button class="btn btn-secondary" type="button">Search</button>
-                        </div>
+                        <form action="{{ route('manageProduct') }}">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search Product" name="search"
+                                    value={{ request('search') }}>
+                                <button class="btn btn-secondary" type="submit">Search</button>
+                            </div>
+                        </form>
                     </div>
                     <div class="ms-auto">
                         <a href="{{ route('add-product') }}" class="btn btn-secondary">Add Product</a>
