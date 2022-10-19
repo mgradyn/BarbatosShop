@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -16,7 +17,7 @@ class CategoryController extends Controller
 
         $category = Category::firstOrCreate([
             'name' -> $request->input('name'),
-            'slug' -> preg_replace('/\s+/', '-', $request->input('name')),
+            'slug' -> Str::slug($request->input('name'), '-'),
         ]);
 
         return;
