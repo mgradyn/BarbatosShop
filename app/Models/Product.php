@@ -19,6 +19,13 @@ class Product extends Model
         'photo'
     ];
 
+    public function scopeFilter($query, $filter)
+    {
+        $query->when($filter ?? false, function($query, $search) {
+            return $query->where("name", "LIKE", "%$search%");
+        });
+    }
+
     public function category()
     {
         return this->belongsTo(Category::class);

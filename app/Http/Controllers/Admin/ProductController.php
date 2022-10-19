@@ -12,13 +12,17 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
-        
-        $request_search = request('search');
+        $products = Product::latest()->filter(request('search'))->paginate(15);
 
-        if ($request_search){
-            $products= Product::where("name", "LIKE", "%$request_search%")->get();
-        }
+        return view('admin.manageProduct.index', compact('products'));
+
+        // cara 1
+        // $products = Product::all();
+        // $request_search = request('search');
+
+        // if ($request_search){
+        //     $products= Product::where("name", "LIKE", "%$request_search%")->get();
+        // }
 
         // cara 2
         // $products = Product::latest();
@@ -29,8 +33,6 @@ class ProductController extends Controller
         //     $products->where("name", "LIKE", "%$request_search%");
         // }
         // $products = $products->get();
-
-        return view('admin.manageProduct.index', compact('products'));
     }
 
     public function add()
@@ -39,16 +41,16 @@ class ProductController extends Controller
         return view('admin.manageProduct.add', compact('categories'));
     }
 
-    private function generateId($name)
-    {
-        $product = User::where('name', $name)->latest('id')->first();
-        if ($product !== null)
-        {
-            $id = $product->id;
-            return $id + 1;
-        }
-        return 0;
-    }
+    // private function generateId($name)
+    // {
+    //     $product = User::where('name', $name)->latest('id')->first();
+    //     if ($product !== null)
+    //     {
+    //         $id = $product->id;
+    //         return $id + 1;
+    //     }
+    //     return 0;
+    // }
 
     public function insert(Request $request)
     {
@@ -93,7 +95,9 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $categories = Category::all();
-        $category = Category::where('id', $product->category_id)->first();
+
+        // $category = (Category::latest()->findCategory($product->category_id)->get())[0];
+        $category = Category::firstWhere('id', $product->category_id);
         $category_name = $category->name;
         return view('admin.manageProduct.edit', compact('product', 'categories', 'category_name'));
     }

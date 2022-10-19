@@ -18,7 +18,7 @@
                         <a href="{{ route('add-product') }}" class="btn btn-secondary">Add Product</a>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card mb-3">
                     <div class="card-body">
                         <table class="table table-bordered table-striped">
                             <tbody>
@@ -42,8 +42,13 @@
                                 @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
+                <div class="d-flex justify-content-start">
+                    {{ $products->links() }}
+                </div>
+
             </div>
         </div>
     </div>
