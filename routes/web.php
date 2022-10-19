@@ -32,15 +32,15 @@ Route::prefix('admin/manageProduct/')->middleware(['auth', 'isAdmin'])->group(fu
 
     Route::get('/', [ProductController::class, 'index'])->name('manageProduct');
 
-    Route::post('/insert-category', [CategoryController::class, 'insert']);
+    Route::post('/insert-category', [CategoryController::class, 'insert'])->name('insert-category');
 
     Route::get('/add-product', [ProductController::class, 'add'])->name('add-product');
 
-    Route::post('/insert-product', [ProductController::class, 'insert']);
+    Route::post('/insert-product', [ProductController::class, 'insert'])->name('insert-product');
 
-    Route::get('/edit-product/{id}', [ProductController::class, 'edit']);
+    Route::get('/edit-product/{id}', [ProductController::class, 'edit'])->name('edit-product');
 
-    Route::put('/update-product/{id}', [ProductController::class, 'update']);
+    Route::put('/update-product/{id}', [ProductController::class, 'update'])->name('update-product');
 
-    Route::get('/delete-product/{id}', [ProductController::class, 'destroy']);
+    Route::get('/delete-product/{id}', [ProductController::class, 'destroy'])->name('delete-product');
 });
