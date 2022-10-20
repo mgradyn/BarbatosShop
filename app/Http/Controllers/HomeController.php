@@ -26,4 +26,12 @@ class HomeController extends Controller
 
         return view('home.index', ['categories' => $categories]);
     }
+
+    public function category($slug)
+    {
+        $category = Category::where('slug', $slug)->first();
+        $products = $category->products()->paginate(10);
+
+        return view('home.category', ['products' => $products, 'category_name' => $category->name]);
+    }
 }

@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\CategoryController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/category/{slug}', [HomeController::class, 'category'])->name('category');
+
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

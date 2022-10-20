@@ -17,7 +17,8 @@
                 @foreach ($categories as $category)
                     @if (count($category->products))
                         <div class="card mt-3">
-                            <div class="card-header">{{ __($category->name) }}</div>
+                            <div class="card-header">{{ __($category->name) }} <a
+                                    href="{{ route('category', ['slug' => $category->slug]) }}">View All</a></div>
 
                             <div class="card-body">
                                 <div class="d-flex flex-row flex-nowrap overflow-auto">
