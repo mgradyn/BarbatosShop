@@ -10,11 +10,16 @@ use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth','isAdmin']);
+    }
+
     public function index()
     {
         $products = Product::latest()->filter(request('search'))->paginate(15)->withQueryString();
 
-        return view('admin.manageProduct.index', compact('products'));
+        return view('admin.manageProduct.index', ['products' => $products]);
 
         // cara 1
         // $products = Product::all();
@@ -38,7 +43,7 @@ class ProductController extends Controller
     public function add()
     {
         $categories = Category::all();
-        return view('admin.manageProduct.add', compact('categories'));
+        return view('admin.manageProduct.add', ['categories' => $categories]);
     }
 
     // private function generateId($name)
@@ -99,7 +104,7 @@ class ProductController extends Controller
         // $category = (Category::latest()->findCategory($product->category_id)->get())[0];
         $category = Category::firstWhere('id', $product->category_id);
         $category_name = $category->name;
-        return view('admin.manageProduct.edit', compact('product', 'categories', 'category_name'));
+        return view('admin.manageProduct.edit', ['product'=>$product, 'categories'=>$categories, 'category_name'=>$category_name]);
     }
 
     public function update(Request $request, $id)

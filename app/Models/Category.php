@@ -15,6 +15,18 @@ class Category extends Model
         'name', 'slug'
     ];
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function scopeFilter($query, $filter)
+    {
+        $query->when($filter ?? false, function($query, $filter) {
+            return $query->where("name", "LIKE", "%$filter%");
+        });
+    }
+
     // public function scopeFindCategory($query, $filter)
     // {
     //     $query->when($filter ?? false, function($query, $search) {
