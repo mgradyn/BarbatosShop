@@ -23,7 +23,7 @@ Route::get('/category/{slug}', [HomeController::class, 'category'])->name('categ
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
