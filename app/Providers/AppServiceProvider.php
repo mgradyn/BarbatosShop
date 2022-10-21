@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\Paginator;
+use App\Models\Category;
 use Blade;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,6 +33,13 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('isAdmin', function () {
             return Auth::check() && Auth::user()->role_as == '1';
         });
+
+        view()->composer(
+            'layouts.app', 
+            function ($view) {
+                $view->with('category_list', Category::all());
+            }
+        );
 
         Paginator::useBootstrap();
     }

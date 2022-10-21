@@ -17,11 +17,15 @@ use App\Http\Controllers\Admin\CategoryController;
 |
 */
 
+Auth::routes();
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/category/{slug}', [HomeController::class, 'category'])->name('category');
+Route::prefix('category/')->group(function(){
+    Route::get('/{slug}', [HomeController::class, 'category'])->name('category');
 
-Auth::routes();
+    Route::get('/{slug}/{id}', [HomeController::class, 'viewProduct'])->name('view-product');
+});
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
 

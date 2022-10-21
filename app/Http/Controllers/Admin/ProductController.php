@@ -99,6 +99,11 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
+
+        if(!$product){
+            return redirect(route('manageProduct'));
+        }
+
         $categories = Category::all();
 
         // $category = (Category::latest()->findCategory($product->category_id)->get())[0];
@@ -158,6 +163,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+
+        if(!$product){
+            return redirect(route('manageProduct'));
+        }
+
         $path = 'uploads/products/'.$product->photo;
         if(File::exists($path))
         {
