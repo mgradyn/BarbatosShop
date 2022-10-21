@@ -34,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
             return Auth::check() && Auth::user()->role_as == '1';
         });
 
+        Blade::if('customer', function () {
+            return Auth::check() && Auth::user()->role_as == '0';
+        });
+
         view()->composer(
             'layouts.app', 
             function ($view) {

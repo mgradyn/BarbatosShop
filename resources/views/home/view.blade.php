@@ -14,23 +14,25 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <table class="table table-borderless">
-                                        <tbody>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <h3 class="card-title">{{ $product->name }}</h5>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-md-3" scope="row">Detail</td>
-                                                <td>{{ $product->detail }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-md-3" scope="row">Price</td>
-                                                <td>{{ 'IDR' . ' ' . $product->price }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <h3 class="card-title">{{ $product->name }}</h5>
+                                        <div class="row mt-3">
+                                            <div class="col-md-3" scope="row">{{ __('Detail') }}</div>
+                                            <div class="col">{{ $product->detail }}</div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-3" scope="row">{{ __('Price') }}</div>
+                                            <div class="col">{{ 'IDR' . ' ' . $product->price }}</div>
+                                        </div>
+                                        @customer
+                                            <div class="form-group row mt-3">
+                                                <label for="qty"
+                                                    class="col-md-3 col-form-label">{{ 'Qty' }}</label>
+                                                <div class="col">
+                                                    <input type="number" class="form-control" id="qty" name="qty">
+                                                </div>
+                                            </div>
+                                            <a type="submit" class="btn btn-outline-secondary mt-3">Purchase</a>
+                                        @endcustomer
                                 </div>
                             </div>
                         </div>
