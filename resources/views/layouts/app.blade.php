@@ -84,13 +84,13 @@
                                 </li>
                             @endif
                         @else
-                            @customer
+                            @isCustomer
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('cart') }}">
                                         <i class="fa fa-shopping-cart"></i>
                                     </a>
                                 </li>
-                            @endcustomer
+                            @endisCustomer
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -101,6 +101,11 @@
                                     <a class="dropdown-item" href="{{ route('profile') }}">
                                         {{ __('Profile') }}
                                     </a>
+                                    @isCustomer
+                                        <a class="dropdown-item" href="{{ route('history') }}">
+                                            {{ __('History') }}
+                                        </a>
+                                    @endisCustomer
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

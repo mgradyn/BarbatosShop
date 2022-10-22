@@ -47,17 +47,18 @@ class HomeController extends Controller
         if($category){
             $product = $category->products()->find($id);
             if ($product){
-                $cart_id = Auth::user()->cart()->first()->id;
-                $cartItem_qty = "";
-
-                if ($cart_id){
+                $cart = Auth::user()->cart()->first();
+                $cartItem_qty = null;
+                if ($cart)
+                {
+                    $cart_id = $cart->id;
                     $cartItem = $product->cartItem()->where('product_id', '=', $product->id)->where('cart_id', '=', $cart_id)->first();
                     if ($cartItem)
                     {
                         $cartItem_qty = $cartItem->qty;
                     }
+                    
                 }
-
                 return view('home.view', ['product' => $product, 'cartItem_qty'=>$cartItem_qty]);
             }
         }

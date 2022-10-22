@@ -12,7 +12,7 @@ class CartController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','isCustomer']);
     }
 
     public function index()
@@ -35,9 +35,12 @@ class CartController extends Controller
                     $totalPriceAll = $totalPriceAll + $totalPrice;
                     array_push($totalPriceItem, $totalPrice);
                 }
+                return view('cart', ['cart_id'=> $cart->id, 'cart_items' => $cart_items, 'total_price_item' => $totalPriceItem, 'totalPriceAll' => $totalPriceAll]);   
             }
+            
         }
-        return view('cart', ['cart_items' => $cart_items, 'total_price_item' => $totalPriceItem, 'totalPriceAll' => $totalPriceAll]);   
+        return redirect(route('home'))->with('status', "Add product to cart to fill your cart");
+        
     }
 
     public function addToCart(Request $request, $product_id)
@@ -70,20 +73,16 @@ class CartController extends Controller
         return redirect(route('cart'))->with('status', "item removed successfully");
     }
 
-    public function destroy($id)
-    {
-        $cart = Cart::find($id);
+    // public function destroy($id)
+    // {
+    //     $cart = Cart::find($id);
 
-        if(!$cart){
-            return redirect(route('home'))->with('status','Error, no cart to delete!');
-        }
+    //     if(!$cart){
+    //         return redirect(route('home'))->with('status','Error, no cart to delete!');
+    //     }
 
-        $cart->delete();
+    //     $cart->delete();
 
-        return redirect(route('home'))->with('status', "Cart removed successfully");
-    }
+    //     return redirect(route('home'))->with('status', "Cart removed successfully");
+    // }
 }
-// Route::get('/cart', [CartController::class, 'index'])->name('cart');
-// Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add-to-cart');
-// Route::patch('update-cart/{id}', [CartController::class, 'updateCart'])->name('update-cart');
-// Route::delete('remove-from-cart', [CartController::class, 'removeFromCart'])->name('remove-from-cart');

@@ -51,14 +51,17 @@
                             {{ __('Total Price: IDR ' . $totalPriceAll) }}
                         </div>
                         <div class="col-md-auto p-4 d-flex align-items-center justify-content-center">
-                            <button type="submit" class="btn btn-outline-success">
-                                {{ __('Purchase') }}
-                            </button>
+                            <form method="POST" action="{{ route('add-to-transaction', ['cart_id' => $cart_id]) }}"
+                                id="add_transaction_form" enctype="multipart/form-data">
+                                @csrf
+                                <button class="btn btn-outline-success" type="submit">
+                                    {{ __('Purchase') }}
+                                </button>
+                            </form>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection
