@@ -24,14 +24,28 @@
                                             <div class="col">{{ 'IDR' . ' ' . $product->price }}</div>
                                         </div>
                                         @customer
-                                            <div class="form-group row mt-3">
-                                                <label for="qty"
-                                                    class="col-md-3 col-form-label">{{ 'Qty' }}</label>
-                                                <div class="col">
-                                                    <input type="number" class="form-control" id="qty" name="qty">
+                                            <form method="POST"
+                                                action="{{ route('add-to-cart', ['product_id' => $product->id]) }}"
+                                                id="add_cart_form" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group row mt-3">
+                                                    <label for="qty"
+                                                        class="col-md-3 col-form-label">{{ 'Qty' }}</label>
+                                                    <div class="col">
+                                                        <input type="number"
+                                                            class="form-control @error('qty') is-invalid @enderror"
+                                                            id="qty" name="qty" value="{{ $cartItem_qty }}">
+                                                        @error('qty')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <a type="submit" class="btn btn-outline-secondary mt-3">Purchase</a>
+                                                <button type="submit" class="btn btn-outline-secondary mt-3">
+                                                    {{ __('Purchase') }}
+                                                </button>
+                                            </form>
                                         @endcustomer
                                 </div>
                             </div>

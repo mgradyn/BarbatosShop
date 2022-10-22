@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -46,7 +47,18 @@ class HomeController extends Controller
         if($category){
             $product = $category->products()->find($id);
             if ($product){
-                return view('home.view', ['product' => $product]);
+                $cart_id = Auth::user()->cart()->first()->id;
+                $cartItem_qty = "";
+
+                if ($cart_id){
+                    $cartItem = $product->cartItem()->where('product_id', '=', $product->id)->where('cart_id', '=', $cart_id)->first();
+                    if ($cartItem)
+                    {
+                        $cartItem_qty = $cartItem->qty;
+                    }
+                }
+
+                return view('home.view', ['product' => $product, 'cartItem_qty'=>$cartItem_qty]);
             }
         }
         return redirect(route('home'));

@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('update-product', ['id' => $product->id]) }}"
                             id="add_product_form" enctype="multipart/form-data">
-                            @method('PUT')
+                            @method('PATCH')
                             @csrf
 
                             <div class="row mb-3">
