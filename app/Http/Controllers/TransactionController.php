@@ -20,25 +20,37 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::where('user_id', Auth::user()->id)->get();
 
-        if (count($transactions))
+        // dd($transactions);
+
+        foreach ($transactions as $transaction)
         {
-            $cart_items = $cart->cartItems()->get();
+            $transactionDetails = $transaction->transactionDetails()->get();
+            $totalPriceTransaction = 0;
+            $totalQuantityTransaction = 0;
 
-            // if (count($cart_items))
-            // {
-                
-            //     $totalPriceItem = [];
-            //     $totalPriceAll = 0;
+            foreach ($transactionDetails as $transactionDetail)
+            {
+                $subQuantity = $transactionDetail->qty;
 
-            //     foreach($cart_items as $cart_item)
-            //     {
-            //         $totalPrice = ($cart_item->product()->first()->price * $cart_item->qty);
-            //         $totalPriceAll = $totalPriceAll + $totalPrice;
-            //         array_push($totalPriceItem, $totalPrice);
-            //     }
-            // }
+                $subProduct = $transactionDetail->product()->first();
+                $transactionDetail->product = $subProduct;
+
+                $subPrice = $transactionDetail->product->price * $subQuantity;
+
+                $transactionDetail->subPrice = $subPrice;
+
+                $totalPriceTransaction = $totalPriceTransaction + $subPrice;
+
+                $totalQuantityTransaction = $totalQuantityTransaction + $subQuantity;
+            }
+            $transaction->totalPriceTransaction =  $totalPriceTransaction;
+
+            $transaction->totalQuantityTransaction = $totalQuantityTransaction;
+
+            $transaction->transactionDetails = $transactionDetails;
         }
-        // return view('history', ['cart_items' => $cart_items, 'total_price_item' => $totalPriceItem, 'totalPriceAll' => $totalPriceAll]);   
+    
+        return view('history', ['transactions'=> $transactions]);   
     }
 
     public function addToTransaction($cart_id)
@@ -66,9 +78,6 @@ class TransactionController extends Controller
                 ]);
                 // dd($transactionDetail);
             }
-            // dd($cart_item);
-
-            // $cart_item->delete();
         }
 
         $cart->delete();

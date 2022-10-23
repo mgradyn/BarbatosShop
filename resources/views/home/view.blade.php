@@ -23,7 +23,7 @@
                                             <div class="col-md-3" scope="row">{{ __('Price') }}</div>
                                             <div class="col">{{ 'IDR' . ' ' . $product->price }}</div>
                                         </div>
-                                        @customer
+                                        @isCustomer
                                             <form method="POST"
                                                 action="{{ route('add-to-cart', ['product_id' => $product->id]) }}"
                                                 id="add_cart_form" enctype="multipart/form-data">
@@ -46,7 +46,7 @@
                                                     {{ __('Purchase') }}
                                                 </button>
                                             </form>
-                                        @endcustomer
+                                        @endisCustomer
                                 </div>
                             </div>
                         </div>
