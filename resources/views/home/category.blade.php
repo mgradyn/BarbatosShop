@@ -35,7 +35,13 @@
                     </div>
                 @else
                     <div class="empty__product">
-                        There are no products to display
+                        <div class="card mb-3">
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h3 class="card-title">{{ __('There are no products to display') }}</h5>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 @endif
 

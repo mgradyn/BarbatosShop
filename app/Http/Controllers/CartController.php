@@ -31,15 +31,19 @@ class CartController extends Controller
 
                 foreach($cart_items as $cart_item)
                 {
-                    $totalPrice = ($cart_item->product()->first()->price * $cart_item->qty);
+                    $product = $cart_item->product()->first();
+                    $totalPrice = ($product->price * $cart_item->qty);
                     $totalPriceAll = $totalPriceAll + $totalPrice;
-                    array_push($totalPriceItem, $totalPrice);
+
+                    $cart_item->totalPrice = $totalPrice;
+                    $cart_item->product = $product;
                 }
-                return view('cart', ['cart_id'=> $cart->id, 'cart_items' => $cart_items, 'total_price_item' => $totalPriceItem, 'totalPriceAll' => $totalPriceAll]);   
+                $cart->totalPriceAll = $totalPriceAll;
+                $cart->cart_items = $cart_items;
             }
             
         }
-        return redirect(route('home'))->with('status', "Add product to cart to fill your cart");
+        return view('cart', ['cart'=> $cart]);  
         
     }
 
