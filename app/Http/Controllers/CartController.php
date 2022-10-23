@@ -26,7 +26,6 @@ class CartController extends Controller
             if (count($cart_items))
             {
                 
-                $totalPriceItem = [];
                 $totalPriceAll = 0;
 
                 foreach($cart_items as $cart_item)

@@ -33,6 +33,9 @@ class TransactionController extends Controller
                 $subQuantity = $transactionDetail->qty;
 
                 $subProduct = $transactionDetail->product()->first();
+
+                // $subProduct = $transactionDetail->product()->withTrashed()->first();
+                
                 $transactionDetail->product = $subProduct;
 
                 $subPrice = $transactionDetail->product->price * $subQuantity;

@@ -123,6 +123,11 @@ class ProductController extends Controller
 
         $product = Product::find($id);
 
+        if(!$product)
+        {    
+            return redirect(route('manageProduct'))->with('status', "Found no product that match id");
+        }
+
         if($request->hasFile('photo'))
         {
             $this->validate($request, [
@@ -165,7 +170,7 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if(!$product){
-            return redirect(route('manageProduct'));
+            return redirect(route('manageProduct'))->with('status', "Found no product that match id");
         }
 
         $path = 'uploads/products/'.$product->photo;
