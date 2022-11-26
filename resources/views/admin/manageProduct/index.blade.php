@@ -26,8 +26,8 @@
                                     <tr>
                                         <td class="d-flex justify-content-center column">
                                             <div style="width: 100px;">
-                                                <img src="{{ asset('uploads/products/' . $item->photo) }}" class="img-fluid"
-                                                    alt="image-here">
+                                                <img src="{{ asset('storage/uploads/products/' . $item->photo) }}"
+                                                    class="img-fluid" alt="image-here">
                                             </div>
 
                                         </td>

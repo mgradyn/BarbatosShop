@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -70,7 +71,8 @@ class ProductController extends Controller
         $file = $request->file('photo');
         $ext = $file->getClientOriginalExtension();
         $filename = time().'.'.$ext;
-        $file->move('uploads/products/', $filename);
+        $file->storeAs('uploads/products', $filename);
+        // move('uploads/products/', $filename);
         // $product->photo = $filename;
 
 
@@ -134,17 +136,21 @@ class ProductController extends Controller
                 'photo' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png'],
             ]);
 
-            $path = 'uploads/products/'.$product->photo;
-
-            if(File::exists($path))
-            {
-                File::delete($path);
+            // $path = 'uploads/products/'.$product->photo;
+            if (Storage::disk('public')->exists('uploads/products/' . $product->photo)) {
+                Storage::delete('uploads/products/' . $product->photo);
             }
+
+            // if(File::exists($path))
+            // {
+            //     File::delete($path);
+            // }
 
             $file = $request->file('photo');
             $ext = $file->getClientOriginalExtension();
             $filename = time().'.'.$ext;
-            $file->move('uploads/products/', $filename);
+            // $file->move('uploads/products/', $filename);
+            $file->storeAs('uploads/products', $filename);
             $product->photo = $filename;
         }
 
@@ -173,11 +179,16 @@ class ProductController extends Controller
             return redirect(route('manageProduct'))->with('status', "Found no product that match id");
         }
 
-        $path = 'uploads/products/'.$product->photo;
-        if(File::exists($path))
-        {
-            File::delete($path);
+        // $path = 'uploads/products/'.$product->photo;
+        // if(File::exists($path))
+        // {
+        //     File::delete($path);
+        // }
+
+        if (Storage::disk('public')->exists('uploads/products/' . $product->photo)) {
+            Storage::delete('uploads/products/' . $product->photo);
         }
+
         $product->delete();
 
         return redirect(route('manageProduct'))->with('status', "Product deleted successfully");

@@ -9,7 +9,7 @@
                     <div class="card mb-3">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img src="{{ asset('uploads/products/' . $product->photo) }}"
+                                <img src="{{ asset('storage/uploads/products/' . $product->photo) }}"
                                     class="p-4 img-fluid rounded-start" alt="product photo">
                             </div>
                             <div class="col-md-8">
