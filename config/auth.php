@@ -70,6 +70,7 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+            'remember' => 120
         ],
 
         // 'users' => [

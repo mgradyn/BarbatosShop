@@ -44,19 +44,8 @@ class ProductController extends Controller
     public function add()
     {
         $categories = Category::all();
-        return view('admin.manageProduct.add', ['categories' => $categories]);
+        return view('admin.manageProduct.productForm', ['title' =>'Add Product','categories' => $categories]);
     }
-
-    // private function generateId($name)
-    // {
-    //     $product = User::where('name', $name)->latest('id')->first();
-    //     if ($product !== null)
-    //     {
-    //         $id = $product->id;
-    //         return $id + 1;
-    //     }
-    //     return 0;
-    // }
 
     public function insert(Request $request)
     {
@@ -111,7 +100,8 @@ class ProductController extends Controller
         // $category = (Category::latest()->findCategory($product->category_id)->get())[0];
         $category = Category::firstWhere('id', $product->category_id);
         $category_name = $category->name;
-        return view('admin.manageProduct.edit', ['product'=>$product, 'categories'=>$categories, 'category_name'=>$category_name]);
+
+        return view('admin.manageProduct.productForm', ['title' =>'Update Product', 'product'=>$product, 'categories'=>$categories, 'category_name'=>$category_name]);
     }
 
     public function update(Request $request, $id)

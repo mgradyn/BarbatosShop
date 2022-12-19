@@ -8,11 +8,15 @@
                     <a href="{{ route('manageProduct') }}" class="btn btn-secondary">Back</a>
                 </div>
                 <div class="card">
-                    <h5 class="card-header">{{ __('Add Product') }}</h5>
+                    <h5 class="card-header">{{ __($title) }}</h5>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('insert-product') }}" id="add_product_form"
-                            enctype="multipart/form-data">
+                        <form method="POST"
+                            action="{{ isset($product) ? route('update-product', ['id' => $product->id]) : route('insert-product') }}"
+                            id="add_product_form" enctype="multipart/form-data">
+                            @isset($product)
+                                @method('PATCH')
+                            @endisset
                             @csrf
 
                             <div class="row mb-3">
@@ -21,7 +25,8 @@
                                 <div>
                                     <input id="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name') }}" autocomplete="name" autofocus>
+                                        value="{{ isset($product) ? $product->name : old('name') }}" autocomplete="name"
+                                        autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -35,11 +40,10 @@
                                 <div>
                                     <div class="input-group @error('category_name') is-invalid @enderror">
                                         <input class="form-select" name="category_name" autocomplete="category_name"
-                                            form="add_product_form" list="datalistOptions" placeholder="Select a Category">
+                                            form="add_product_form" list="datalistOptions" placeholder="Select a Category"
+                                            value="{{ isset($product) ? $category_name : old('category_name') }}">
 
                                         <datalist id="datalistOptions">
-
-
                                             @foreach ($categories as $item)
                                                 <option value="{{ $item->name }}">{{ $item->name }}</option>
                                             @endforeach
@@ -58,8 +62,7 @@
                                 <label for="detail" class="mb-1">{{ __('Detail') }}</label>
                                 <div>
                                     <textarea class="form-control @error('detail') is-invalid @enderror" id="detail" rows="6" name="detail"
-                                        autocomplete="detail" autofocus></textarea>
-
+                                        autocomplete="detail" autofocus>{{ isset($product) ? $product->detail : old('detail') }}</textarea>
                                     @error('detail')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -75,7 +78,8 @@
                                 <div>
                                     <input id="price" type="text"
                                         class="form-control @error('price') is-invalid @enderror" name="price"
-                                        value="{{ old('price') }}" autocomplete="price" autofocus>
+                                        value="{{ isset($product) ? $product->price : old('price') }}" autocomplete="price"
+                                        autofocus>
                                     @error('price')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -88,7 +92,7 @@
                                 <div>
                                     <input type="file" class="form-control @error('photo') is-invalid @enderror"
                                         id="photo" placeholder="No file chosen" name="photo"
-                                        value="{{ old('photo') }}">
+                                        value={{ isset($product) ? $product->photo : old('photo') }}>
                                     @error('photo')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -101,7 +105,7 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <button type="submit" class="btn btn-outline-secondary">
-                                        {{ __('Add') }}
+                                        {{ __('Update') }}
                                     </button>
                                 </div>
                             </div>
