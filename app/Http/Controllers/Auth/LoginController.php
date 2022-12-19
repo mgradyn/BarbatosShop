@@ -34,12 +34,12 @@ class LoginController extends Controller
     {
         if(Auth::user()->role_as == '1')
         {
-            return redirect(route('home'))->with('status', 'Admin logged in successfully');
+            return redirect(route('home'))->with('status-success', 'Admin logged in successfully');
             // return redirect('dashboard')->with('status', 'Admin logged in successfully');
         }
         elseif(Auth::user()->role_as == '0')
         {
-            return redirect(route('home'))->with('status', 'Customer logged in successfully');
+            return redirect(route('home'))->with('status-success', 'Customer logged in successfully');
         }
     }
 
