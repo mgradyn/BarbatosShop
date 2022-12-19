@@ -114,7 +114,10 @@
                                         <select id="inputState" class="form-select" name="country" autocomplete="country"
                                             form="registration_form">
                                             <option selected disabled value="">Choose a country</option>
-                                            <option value="...">...</option>
+                                            <option value="Indonesia">Indonesia</option>
+                                            <option value="Malaysia">Malaysia</option>
+                                            <option value="Singapore">Singapore</option>
+                                            <option value="Thailand">Thailand</option>
                                         </select>
                                     </div>
                                     @error('country')

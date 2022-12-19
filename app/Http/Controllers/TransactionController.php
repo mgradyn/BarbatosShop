@@ -61,7 +61,7 @@ class TransactionController extends Controller
         $cart = Cart::find($cart_id);
 
         if(!$cart){
-            return redirect(route('home'))->with('status','Error, cart is empty!');
+            return redirect(route('home'))->with('status-error','Error, cart is empty!');
         }
 
         $transaction = Transaction::Create([
@@ -85,6 +85,6 @@ class TransactionController extends Controller
 
         $cart->delete();
 
-        return redirect(route('home'))->with('status','Thank you for purchasing!');
+        return redirect(route('home'))->with('status-success','Thank you for purchasing!');
     }
 }

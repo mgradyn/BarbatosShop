@@ -29,7 +29,8 @@ class UserSeeder extends Seeder
           'password' => Hash::make('12345678'),
           'gender' => 'female',
           'date_of_birth' => '2013-06-16',
-          'country' => 'kanva'
+          'country' => 'kanva',
+          'role_as' => 1
         ]);
     }
 }

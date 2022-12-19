@@ -4,6 +4,7 @@
     <div class="container mt-5 mb-5">
         <div class="d-flex justify-content-center row">
             <div class="col-md-10">
+                @include('layouts.alert')
                 <div class="d-flex mb-3">
                     <div>
                         <form action="{{ route('manageProduct') }}">

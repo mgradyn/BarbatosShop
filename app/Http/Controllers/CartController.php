@@ -60,7 +60,7 @@ class CartController extends Controller
             ['cart_id' => $cart->id, 'product_id' => $product_id],
             ['qty' => $request->input('qty')]
         );
-        return Redirect::back()->with('status','Product is added to cart!');
+        return Redirect::back()->with('status-success','Product is added to cart!');
     }
 
     public function destroyItem($id)
@@ -68,12 +68,12 @@ class CartController extends Controller
         $cartItem = Cart_item::find($id);
 
         if(!$cartItem){
-            return redirect(route('cart'))->with('status','Error, no item to remove!');
+            return redirect(route('cart'))->with('status-error','Error, no item to remove!');
         }
 
         $cartItem->delete();
 
-        return redirect(route('cart'))->with('status', "item removed successfully");
+        return redirect(route('cart'))->with('status-success', "item removed successfully");
     }
 
     // public function destroy($id)

@@ -18,7 +18,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::latest()->filter(request('search'))->paginate(15)->withQueryString();
+        $products = Product::latest()->filter(request('search'))->paginate(10)->withQueryString();
 
         return view('admin.manageProduct.index', ['products' => $products]);
 
@@ -94,7 +94,7 @@ class ProductController extends Controller
             'photo' => $filename,
         ]);
 
-        return redirect(route('manageProduct'))->with('status', "Product Added Successfully");
+        return redirect(route('manageProduct'))->with('status-success', "Product Added Successfully");
 
     }
 
@@ -127,7 +127,7 @@ class ProductController extends Controller
 
         if(!$product)
         {    
-            return redirect(route('manageProduct'))->with('status', "Found no product that match id");
+            return redirect(route('manageProduct'))->with('status-error', "Found no product that match id");
         }
 
         if($request->hasFile('photo'))
@@ -167,7 +167,7 @@ class ProductController extends Controller
         $product->price = $request->input('price');
         $product->update();
 
-        return redirect(route('manageProduct'))->with('status', "Product updated successfully");
+        return redirect(route('manageProduct'))->with('status-success', "Product updated successfully");
     }
 
 
@@ -176,7 +176,7 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if(!$product){
-            return redirect(route('manageProduct'))->with('status', "Found no product that match id");
+            return redirect(route('manageProduct'))->with('status-error', "Found no product that match id");
         }
 
         // $path = 'uploads/products/'.$product->photo;
@@ -191,6 +191,6 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect(route('manageProduct'))->with('status', "Product deleted successfully");
+        return redirect(route('manageProduct'))->with('status-success', "Product deleted successfully");
     }
 }

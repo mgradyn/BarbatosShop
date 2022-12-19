@@ -92,6 +92,32 @@ class ProductSeeder extends Seeder
         ]);
 
         Product::firstOrCreate([
+            'name' => "Livana Spikoe Lapis Legit Seriboe",
+            'category_id' => 1,
+            'detail'=> "Kue lapis surabaya yang dikenal juga dengan nama spiku, dibuat dengan resep kuno (dikenal sejak 1967) tanpa bahan pengawet.",
+            'price'=> 75000,
+            'photo' => "10.jpg",
+        ]);
+
+
+        Product::firstOrCreate([
+            'name' => "Permen Duar",
+            'category_id' => 1,
+            'detail'=> "Enaknya mantep. Lidah langsung nyami.",
+            'price'=> 12000,
+            'photo' => "31.jpg",
+        ]);
+
+        Product::firstOrCreate([
+            'name' => "Bumbu Pedas Rasa Spongebob",
+            'category_id' => 1,
+            'detail'=> "Kamu ingat spongebob? Warnanya orange kan? Nah sekarang warnanya kuning, masakan ingin digoreng dengan bumbu spongebob yang lezat.",
+            'price'=> 1000,
+            'photo' => "32.jpg",
+        ]);
+
+
+        Product::firstOrCreate([
             'name' => "Mainan Robot Transformers Deformation Toy Aoyi Mech SS38 Optimus Prime",
             'category_id' => 2,
             'detail'=> "BmB AOYI MECH Optimus Prime SS38 Studio Series 
@@ -288,6 +314,20 @@ class ProductSeeder extends Seeder
             Language : English",
             'price'=> 267000,
             'photo' => "29.jpg",
+        ]);
+
+        Product::firstOrCreate([
+            'name' => "Harry Potter: Courage : A guided journal for cultivating your inner Gr",
+            'category_id' => 3,
+            'detail'=> "Product details
+            Format Hardback | 224 pages
+            Dimensions 150 x 230 x 22mm | 535g
+            Publication date 19 Nov 2020
+            Publisher Templar Publishing
+            Publication City/Country London, United Kingdom
+            Language English",
+            'price'=> 298000,
+            'photo' => "30.jpg",
         ]);
 
         Product::firstOrCreate([
