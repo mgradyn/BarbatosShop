@@ -17,7 +17,7 @@ class CreateTransactionDetailsTable extends Migration
             $table->id();
             $table->foreignId('transaction_id')->references('id')->on('transactions')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('qty');
+            $table->integer('qty');
             $table->timestamps();
         });
     }
