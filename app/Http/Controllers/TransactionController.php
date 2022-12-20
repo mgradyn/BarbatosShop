@@ -52,8 +52,8 @@ class TransactionController extends Controller
 
             $transaction->transactionDetails = $transactionDetails;
         }
-    
-        return view('history', ['transactions'=> $transactions]);   
+        // dd($transactions);
+        return view('menu.history', ['transactions'=> $transactions]);   
     }
 
     public function addToTransaction($cart_id)

@@ -42,7 +42,7 @@ class CartController extends Controller
             }
             
         }
-        return view('cart', ['cart'=> $cart]);  
+        return view('menu.cart', ['cart'=> $cart]);  
         
     }
 

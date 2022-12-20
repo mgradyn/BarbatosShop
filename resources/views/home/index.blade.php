@@ -2,17 +2,11 @@
 
 @section('content')
     <div class="container">
-        @include('layouts.alert')
+        <x-alert />
         <div class="row justify-content-center">
             <div class="col-md">
                 <div class="search__container">
-                    <form action="{{ route('home') }}">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search Product" name="search"
-                                value={{ request('search') }}>
-                            <button class="btn btn-secondary" type="submit">Search</button>
-                        </div>
-                    </form>
+                    <x-search name="home" />
                 </div>
 
                 @if (request('search'))
@@ -20,26 +14,20 @@
                         <div class="card-header">{{ __('Search Result') }} </div>
 
                         <div class="card-body">
-                            <div class="row">
-                                @foreach ($categories as $category)
-                                    @foreach ($category->products as $product)
-                                        <a class="col text-decoration-none text-reset"
-                                            href="{{ route('view-product', ['slug' => $category->slug, 'id' => $product->id]) }}">
-                                            <div class="card m-2" style="min-width: 180px; max-width: 180px;">
-                                                <img src="{{ asset('storage/uploads/products/' . $product->photo) }}"
-                                                    class="card-img-top" alt="image-product">
-                                                <div class="card-body">
-                                                    <p class="card-text text-truncate">{{ $product->name }}</p>
-                                                    <h5 class="card-title">
-                                                        {{ 'IDR' . ' ' . $product->price }}
-                                                    </h5>
-                                                </div>
-
+                            @if ($productCount == 0)
+                                <p>{{ 'Your search - ' . request('search') . ' - did not match any products.' }}</p>
+                            @else
+                                <div class="row row-cols-xl-5">
+                                    @foreach ($categories as $category)
+                                        @foreach ($category->products as $product)
+                                            <div class="col d-flex justify-content-center">
+                                                <x-card :category="$category" :product="$product" />
                                             </div>
-                                        </a>
+                                        @endforeach
                                     @endforeach
-                                @endforeach
-                            </div>
+
+                                </div>
+                            @endif
                         </div>
                     </div>
                 @else
@@ -52,21 +40,9 @@
                                 <div class="card-body">
                                     <div class="d-flex flex-row flex-nowrap overflow-auto">
                                         @foreach ($category->products as $product)
-                                            <a class="text-decoration-none text-reset"
-                                                href="{{ route('view-product', ['slug' => $category->slug, 'id' => $product->id]) }}">
-                                                <div class="card m-2" style="min-width: 180px; max-width: 180px;">
-                                                    <img src="{{ asset('storage/uploads/products/' . $product->photo) }}"
-                                                        class="card-img-top img-fluid" alt="image-product"
-                                                        style="min-height: 180px; max-height: 180px;">
-                                                    <div class="card-body">
-                                                        <p class="card-text text-truncate">{{ $product->name }}</p>
-                                                        <h5 class="card-title">
-                                                            {{ 'IDR' . ' ' . $product->price }}
-                                                        </h5>
-                                                    </div>
-
-                                                </div>
-                                            </a>
+                                            <div class="me-4">
+                                                <x-card :category="$category" :product="$product" />
+                                            </div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -74,22 +50,6 @@
                         @endif
                     @endforeach
                 @endif
-
-                {{-- <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div> --}}
-
-
             </div>
         </div>
     </div>

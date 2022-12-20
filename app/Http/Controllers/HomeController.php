@@ -25,7 +25,16 @@ class HomeController extends Controller
             $query->filter(request('search'));
         }])->get();
 
-        return view('home.index', ['categories' => $categories]);
+        $productCount = 0;
+        foreach($categories as $category)
+        {
+            foreach ($category->products as $product)
+            {
+                $productCount += 1;
+            }
+        }
+
+        return view('home.index', ['categories' => $categories, 'productCount' => $productCount]);
     }
 
     public function category($slug)

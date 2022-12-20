@@ -23,11 +23,11 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
+    // /**
+    //  * Where to redirect users after login.
+    //  *
+    //  * @var string
+    //  */
     // protected $redirectTo = RouteServiceProvider::HOME;
 
     protected function authenticated(Request $request, $user)
@@ -42,6 +42,23 @@ class LoginController extends Controller
             return redirect(route('home'))->with('status-success', 'Customer logged in successfully');
         }
     }
+
+    /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+    }
+
 
     /**
      * Create a new controller instance.

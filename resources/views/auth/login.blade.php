@@ -15,7 +15,7 @@
                                 <label for="email" class="mb-1">{{ __('Email') }}</label>
 
                                 <div>
-                                    <input id="email" type="email"
+                                    <input id="email" type="text"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email') }}" autocomplete="email" autofocus
                                         placeholder="Enter Your Email">
