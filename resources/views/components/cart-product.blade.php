@@ -20,8 +20,13 @@
         </div>
         <div class="col-md-2">
             <div class="card-body d-flex justify-content-end">
-                <a href="{{ route('delete-from-cart', ['item_id' => $item->id]) }}" class="btn btn-outline-danger"><i
-                        class="fa fa-trash"></i></a>
+                <form action="{{ route('delete-from-cart', ['item_id' => $item->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
             </div>
 
         </div>

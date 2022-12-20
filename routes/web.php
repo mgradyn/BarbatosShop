@@ -34,7 +34,7 @@ Route::middleware(['auth'])->group(function (){
 Route::middleware(['auth', 'isCustomer'])->group(function (){
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::post('add-to-cart/{product_id}', [CartController::class, 'addToCart'])->name('add-to-cart');
-    Route::get('delete-from-cart/{item_id}', [CartController::class, 'destroyItem'])->name('delete-from-cart');
+    Route::delete('delete-from-cart/{item_id}', [CartController::class, 'destroyItem'])->name('delete-from-cart');
     // Route::get('delete-cart/{cart_id}', [CartController::class, 'destroy'])->name('delete-cart');
 
     Route::get('/history', [TransactionController::class, 'index'])->name('history');
@@ -50,5 +50,5 @@ Route::prefix('admin/manageProduct/')->middleware(['auth', 'isAdmin'])->group(fu
     Route::post('/insert-product', [ProductController::class, 'insert'])->name('insert-product');
     Route::get('/edit-product/{id}', [ProductController::class, 'edit'])->name('edit-product');
     Route::patch('/update-product/{id}', [ProductController::class, 'update'])->name('update-product');
-    Route::get('/delete-product/{id}', [ProductController::class, 'destroy'])->name('delete-product');
+    Route::delete('/delete-product/{id}', [ProductController::class, 'destroy'])->name('delete-product');
 });

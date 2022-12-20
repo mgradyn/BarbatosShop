@@ -13,8 +13,15 @@
             <div class="card-body d-flex justify-content-end">
                 <a href="{{ route('edit-product', ['id' => $product->id]) }}" class="btn btn-outline-warning me-1"><i
                         class="fas fa-edit"></i></a>
-                <a href="{{ route('delete-product', ['id' => $product->id]) }}" class="btn btn-outline-danger"><i
-                        class="fas fa-trash"></i></a>
+
+
+                <form action="{{ route('delete-product', ['id' => $product->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
