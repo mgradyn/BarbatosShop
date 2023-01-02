@@ -74,18 +74,5 @@ class CartController extends Controller
         $cartItem->delete();
 
         return redirect(route('cart'))->with('status-success', "item removed successfully");
-    }
-
-    // public function destroy($id)
-    // {
-    //     $cart = Cart::find($id);
-
-    //     if(!$cart){
-    //         return redirect(route('home'))->with('status','Error, no cart to delete!');
-    //     }
-
-    //     $cart->delete();
-
-    //     return redirect(route('home'))->with('status', "Cart removed successfully");
-    // }
+    }   
 }

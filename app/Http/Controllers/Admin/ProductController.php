@@ -131,7 +131,7 @@ class ProductController extends Controller
         $product->category_id = $category_id;
         $product->detail = $request->input('detail');
         $product->price = $request->input('price');
-        $product->update();
+        $product->save();
 
         return redirect(route('manage-product'))->with('status-success', "Product updated successfully");
     }
