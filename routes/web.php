@@ -35,13 +35,10 @@ Route::middleware(['auth', 'isCustomer'])->group(function (){
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::post('add-to-cart/{product_id}', [CartController::class, 'addToCart'])->name('add-to-cart');
     Route::delete('delete-from-cart/{item_id}', [CartController::class, 'destroyItem'])->name('delete-from-cart');
-    // Route::get('delete-cart/{cart_id}', [CartController::class, 'destroy'])->name('delete-cart');
 
     Route::get('/history', [TransactionController::class, 'index'])->name('history');
     Route::post('add-to-transaction/{cart_id}', [TransactionController::class, 'addToTransaction'])->name('add-to-transaction');
 });
-
-// Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin/manage-product/')->middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('/', [ProductController::class, 'index'])->name('manage-product');
