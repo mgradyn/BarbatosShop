@@ -43,8 +43,8 @@ Route::middleware(['auth', 'isCustomer'])->group(function (){
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('admin/manageProduct/')->middleware(['auth', 'isAdmin'])->group(function(){
-    Route::get('/', [ProductController::class, 'index'])->name('manageProduct');
+Route::prefix('admin/manage-product/')->middleware(['auth', 'isAdmin'])->group(function(){
+    Route::get('/', [ProductController::class, 'index'])->name('manage-product');
     Route::post('/insert-category', [CategoryController::class, 'insert'])->name('insert-category');
     Route::get('/add-product', [ProductController::class, 'add'])->name('add-product');
     Route::post('/insert-product', [ProductController::class, 'insert'])->name('insert-product');

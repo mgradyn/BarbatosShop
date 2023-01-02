@@ -26,11 +26,4 @@ class Category extends Model
             return $query->where("name", "LIKE", "%$filter%");
         });
     }
-
-    // public function scopeFindCategory($query, $filter)
-    // {
-    //     $query->when($filter ?? false, function($query, $search) {
-    //         return $query->firstWhere("id", $search);
-    //     });
-    // }
 }

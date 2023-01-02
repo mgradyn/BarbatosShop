@@ -14,7 +14,7 @@
                         <div class="card-header">{{ __('Search Result') }} </div>
 
                         <div class="card-body">
-                            @if ($productCount == 0)
+                            @if ($productCount < 1)
                                 <p>{{ 'Your search - ' . request('search') . ' - did not match any products.' }}</p>
                             @else
                                 <div class="row row-cols-xl-5">

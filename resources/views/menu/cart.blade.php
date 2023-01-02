@@ -4,6 +4,7 @@
     <div class="container mt-5 mb-5">
         <div class="d-flex justify-content-center row">
             <div class="col-md-10">
+                <x-alert />
                 @if ($cart && $cart->cart_items)
                     @foreach ($cart->cart_items as $item)
                         <x-cart-product :item="$item" />

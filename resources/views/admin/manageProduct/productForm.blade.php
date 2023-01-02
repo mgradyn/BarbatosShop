@@ -5,10 +5,13 @@
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-5 col-xl-5">
                 <div class="d-flex justify-content-start mb-3">
-                    <a href="{{ route('manageProduct') }}" class="btn btn-secondary">Back</a>
+                    <a href="{{ (url()->current() != url()->previous()) ? url()->previous():route('manage-product')  }}" 
+                        class="btn btn-secondary">
+                        <i class="fas fa-chevron-left"></i>
+                        {{ __(" Back")}}</a>
                 </div>
                 <div class="card">
-                    <h5 class="card-header">{{ __($title) }}</h5>
+                    <h5 class="card-header">{{ __($title) . " Product"}}</h5>
 
                     <div class="card-body">
                         <form method="POST"
@@ -89,6 +92,7 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label for="photo" class="mb-1">{{ __('Photo') }}</label>
                                 <div>
                                     <input type="file" class="form-control @error('photo') is-invalid @enderror"
                                         id="photo" placeholder="No file chosen" name="photo"
@@ -105,7 +109,7 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <button type="submit" class="btn btn-outline-secondary">
-                                        {{ __('Update') }}
+                                        {{ __($title) }}
                                     </button>
                                 </div>
                             </div>

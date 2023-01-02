@@ -62,7 +62,7 @@
                     <ul class="navbar-nav me-auto">
                         @isAdmin
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('manageProduct') }}">{{ __('Manage Product') }}</a>
+                                <a class="nav-link" href="{{ route('manage-product') }}">{{ __('Manage Product') }}</a>
                             </li>
                         @endisAdmin
                     </ul>

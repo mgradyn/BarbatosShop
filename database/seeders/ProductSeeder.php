@@ -329,19 +329,5 @@ class ProductSeeder extends Seeder
             'price'=> 298000,
             'photo' => "30.jpg",
         ]);
-
-        Product::firstOrCreate([
-            'name' => "Harry Potter: Courage : A guided journal for cultivating your inner Gr",
-            'category_id' => 3,
-            'detail'=> "Product details
-            Format Hardback | 224 pages
-            Dimensions 150 x 230 x 22mm | 535g
-            Publication date 19 Nov 2020
-            Publisher Templar Publishing
-            Publication City/Country London, United Kingdom
-            Language English",
-            'price'=> 298000,
-            'photo' => "30.jpg",
-        ]);
     }
 }

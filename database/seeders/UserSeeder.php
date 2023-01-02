@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'gender' => 'male',
             'date_of_birth' => '2015-06-16',
-            'country' => 'megalovania'
+            'country' => 'Malaysia'
         ]);
 
         User::firstOrCreate([
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
           'password' => Hash::make('12345678'),
           'gender' => 'female',
           'date_of_birth' => '2013-06-16',
-          'country' => 'kanva',
+          'country' => 'Indonesia',
           'role_as' => 1
         ]);
     }

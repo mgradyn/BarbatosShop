@@ -44,14 +44,14 @@ class ProductController extends Controller
     public function add()
     {
         $categories = Category::all();
-        return view('admin.manageProduct.productForm', ['title' =>'Add Product','categories' => $categories]);
+        return view('admin.manageProduct.productForm', ['title' =>'Add','categories' => $categories]);
     }
 
     public function insert(Request $request)
     {
         $this->validate($request, [
             'name' => ['required', 'string'],
-            'category_name' => ['required'],
+            'category_name' => ['required', 'string'],
             'detail' => ['required'],
             'price' => ['required', 'integer'],
             'photo' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png'],
@@ -83,7 +83,7 @@ class ProductController extends Controller
             'photo' => $filename,
         ]);
 
-        return redirect(route('manageProduct'))->with('status-success', "Product Added Successfully");
+        return redirect(route('manage-product'))->with('status-success', "Product Added Successfully");
 
     }
 
@@ -92,7 +92,7 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if(!$product){
-            return redirect(route('manageProduct'));
+            return redirect(route('manage-product'));
         }
 
         $categories = Category::all();
@@ -101,14 +101,14 @@ class ProductController extends Controller
         $category = Category::firstWhere('id', $product->category_id);
         $category_name = $category->name;
 
-        return view('admin.manageProduct.productForm', ['title' =>'Update Product', 'product'=>$product, 'categories'=>$categories, 'category_name'=>$category_name]);
+        return view('admin.manageProduct.productForm', ['title' =>'Update', 'product'=>$product, 'categories'=>$categories, 'category_name'=>$category_name]);
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => ['required', 'string'],
-            'category_name' => ['required'],
+            'category_name' => ['required', 'string '],
             'detail' => ['required'],
             'price' => ['required', 'integer'],
         ]);
@@ -117,7 +117,7 @@ class ProductController extends Controller
 
         if(!$product)
         {    
-            return redirect(route('manageProduct'))->with('status-error', "Found no product that match id");
+            return redirect(route('manage-product'))->with('status-error', "Found no product that match id");
         }
 
         if($request->hasFile('photo'))
@@ -144,8 +144,11 @@ class ProductController extends Controller
             $product->photo = $filename;
         }
 
+        $category_name = $request->input('category_name');
+
         $category = Category::firstOrCreate([
-            'name' => $request->input('category_name'),
+            'name' => $category_name,
+            'slug' => preg_replace('/\s+/', '-', $category_name),
         ]);
 
         $category_id =  $category->id; 
@@ -157,7 +160,7 @@ class ProductController extends Controller
         $product->price = $request->input('price');
         $product->update();
 
-        return redirect(route('manageProduct'))->with('status-success', "Product updated successfully");
+        return redirect(route('manage-product'))->with('status-success', "Product updated successfully");
     }
 
 
@@ -166,7 +169,7 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if(!$product){
-            return redirect(route('manageProduct'))->with('status-error', "Found no product that match id");
+            return redirect(route('manage-product'))->with('status-error', "Found no product that match id");
         }
 
         // $path = 'uploads/products/'.$product->photo;
@@ -181,6 +184,6 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect(route('manageProduct'))->with('status-success', "Product deleted successfully");
+        return redirect(route('manage-product'))->with('status-success', "Product deleted successfully");
     }
 }
