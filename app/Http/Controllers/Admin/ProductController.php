@@ -21,24 +21,6 @@ class ProductController extends Controller
         $products = Product::latest()->filter(request('search'))->paginate(10)->withQueryString();
 
         return view('admin.manageProduct.index', ['products' => $products]);
-
-        // cara 1
-        // $products = Product::all();
-        // $request_search = request('search');
-
-        // if ($request_search){
-        //     $products= Product::where("name", "LIKE", "%$request_search%")->get();
-        // }
-
-        // cara 2
-        // $products = Product::latest();
-        
-        // $request_search = request('search');
-
-        // if ($request_search){
-        //     $products->where("name", "LIKE", "%$request_search%");
-        // }
-        // $products = $products->get();
     }
 
     public function add()
@@ -97,7 +79,6 @@ class ProductController extends Controller
 
         $categories = Category::all();
 
-        // $category = (Category::latest()->findCategory($product->category_id)->get())[0];
         $category = Category::firstWhere('id', $product->category_id);
         $category_name = $category->name;
 
@@ -126,20 +107,13 @@ class ProductController extends Controller
                 'photo' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png'],
             ]);
 
-            // $path = 'uploads/products/'.$product->photo;
             if (Storage::disk('public')->exists('uploads/products/' . $product->photo)) {
                 Storage::delete('uploads/products/' . $product->photo);
             }
 
-            // if(File::exists($path))
-            // {
-            //     File::delete($path);
-            // }
-
             $file = $request->file('photo');
             $ext = $file->getClientOriginalExtension();
             $filename = time().'.'.$ext;
-            // $file->move('uploads/products/', $filename);
             $file->storeAs('uploads/products', $filename);
             $product->photo = $filename;
         }
@@ -171,12 +145,6 @@ class ProductController extends Controller
         if(!$product){
             return redirect(route('manage-product'))->with('status-error', "Found no product that match id");
         }
-
-        // $path = 'uploads/products/'.$product->photo;
-        // if(File::exists($path))
-        // {
-        //     File::delete($path);
-        // }
 
         if (Storage::disk('public')->exists('uploads/products/' . $product->photo)) {
             Storage::delete('uploads/products/' . $product->photo);
