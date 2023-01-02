@@ -128,7 +128,6 @@ class ProductController extends Controller
         $category_id =  $category->id; 
 
         $product->name = $request->input('name');
-        // $product->slug = preg_replace('/\s+/', '-', $request->input('name')) . "-" . $product->generateId($request->input('name'));
         $product->category_id = $category_id;
         $product->detail = $request->input('detail');
         $product->price = $request->input('price');
